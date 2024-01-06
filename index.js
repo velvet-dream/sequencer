@@ -1,9 +1,10 @@
-import * as Tone from "./node_modules/tone"
-
 const playButt = document.querySelector("#play-button");
 playButt.addEventListener("click", () => {
-  //create a synth and connect it to the main output (your speakers)
-  const synth = new Tone.Synth().toDestination();
-  //play a middle 'C' for the duration of an 8th note
-  synth.triggerAttackRelease("C4", "8n");
+  const audioCtx = new AudioContext();
+  const oscillator = new OscillatorNode(audioCtx, {
+    type: "sine",
+  });
+  oscillator.connect(audioCtx.destination);
+  oscillator.start(1);
+  oscillator.stop(1 + 1);
 });
