@@ -9,10 +9,7 @@ playButt.addEventListener("click", () => {
   for (let i = 0; i < 4; i++) {
     tracks.push(new Track(i));
   }
-  console.log(tracks);
 });
-
-console.log(tracks);
 
 const playSoundButts = document.querySelectorAll(".play-sound");
 playSoundButts.forEach((button, index) => {

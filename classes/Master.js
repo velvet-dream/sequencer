@@ -26,8 +26,8 @@ export default class Master {
             })
         };
         // Mixer with 4 inputs
-        this.mix = new ChannelMergerNode(this.ctx, { numberOfInputs: 4, channelCount: 1, channelCountMode: 'explicit' });
-       
+        this.mix = new GainNode(this.ctx);
+
         this.mix.connect(this.filters.hsf)
             .connect(this.filters.lsf)
             .connect(this.vol)
@@ -35,7 +35,7 @@ export default class Master {
     }
 
     receive(audioNode, channel=0) {
-        // Connects the audio node to the Master's mix's channel (ChannelMergerNode)
-        audioNode.connect(this.mix, 0, channel)
+        // Connects the audio node to the Master's mix
+        audioNode.connect(this.mix);
     }
 }
