@@ -1,10 +1,22 @@
+import Master from "./classes/Master.js";
+import Track from "./classes/Track.js";
+
+const master = Master.getMaster();
+const tracks = [];
+
 const playButt = document.querySelector("#play-button");
 playButt.addEventListener("click", () => {
-  const audioCtx = new AudioContext();
-  const oscillator = new OscillatorNode(audioCtx, {
-    type: "sine",
+  for (let i = 0; i < 4; i++) {
+    tracks.push(new Track(i));
+  }
+  console.log(tracks);
+});
+
+console.log(tracks);
+
+const playSoundButts = document.querySelectorAll(".play-sound");
+playSoundButts.forEach((button, index) => {
+  button.addEventListener("click", (e, i = index) => {
+    tracks[i].playSound();
   });
-  oscillator.connect(audioCtx.destination);
-  oscillator.start(1);
-  oscillator.stop(1 + 1);
 });
