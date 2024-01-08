@@ -9,7 +9,7 @@ export default class Master {
 
     constructor() {
         this.ctx = new AudioContext();
-        this.vol = this.ctx.createGain();
+        this.vol = new GainNode(this.ctx, { gain: 0.2 });
         this.filters = {
             // The lowshelf filter allows all frequencies through, 
             // but adds a boost (or attenuation) to the lower frequencies.

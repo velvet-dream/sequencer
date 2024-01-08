@@ -23,15 +23,26 @@ export default class Track {
         this.ins.start();
     }
 
-    playSound(time=1) {
-        const attackTime = 0;
-        const releaseTime = 1.5;
+    playSound(time=0) {
+        const enveloppe = {
+            aTime: 0,
+            dTime: 0.1,
+            sTime: 0.1,
+            rTime: 0.4,
+        }
+        
         const soundStartTime = this.master.ctx.currentTime + time;
         
         // time is in seconds
         this.env.gain.cancelScheduledValues(soundStartTime);
         this.env.gain.setValueAtTime(0, soundStartTime);
-        this.env.gain.linearRampToValueAtTime(1, soundStartTime + attackTime);
-        this.env.gain.linearRampToValueAtTime(0, soundStartTime + releaseTime);
+        // attack
+        this.env.gain.linearRampToValueAtTime(1, soundStartTime + enveloppe.aTime);
+        // decay
+        this.env.gain.linearRampToValueAtTime(0.6, soundStartTime + enveloppe.aTime + enveloppe.dTime);
+        // sustain
+        this.env.gain.linearRampToValueAtTime(0.5, soundStartTime + enveloppe.aTime + enveloppe.dTime + enveloppe.sTime);
+        // release 
+        this.env.gain.linearRampToValueAtTime(0, soundStartTime + enveloppe.aTime + enveloppe.dTime + enveloppe.sTime + enveloppe.rTime);
     }
 }
